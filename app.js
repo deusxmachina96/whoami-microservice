@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var useragent = require('express-useragent');
+
 
 var routes = require('./routes/index');
 
@@ -26,6 +28,11 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Neat middleware that extracts browser and OS info from
+// req.headers
+// Source: https://github.com/biggora/express-useragent
+app.use(useragent.express());
 
 app.use('/', routes);
 
